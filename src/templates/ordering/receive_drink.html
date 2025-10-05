@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Receive Drink - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="receive-container">
+    <h2>🎉 Receive Your Drink</h2>
+    <p>Your order is ready for pickup!</p>
+    
+    <div class="ready-card">
+        <div class="drink-icon">🧋</div>
+        <h3>Order #{{ order.order_number }} is Ready!</h3>
+        
+        <div class="order-summary">
+            <h4>Your Order:</h4>
+            <ul>
+                {% for item in order.items.all %}
+                <li>
+                    {{ item.quantity }}x {{ item.drink.name }} ({{ item.size.name }})
+                    {% if item.flavor %} - {{ item.flavor.name }}{% endif %}
+                    {% if item.toppings.exists %}
+                        <br>Toppings: {% for topping in item.toppings.all %}{{ topping.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="total">Total Paid: ${{ order.total_amount }}</p>
+        </div>
+        
+        <div class="pickup-instructions">
+            <h4>Pickup Instructions:</h4>
+            <ol>
+                <li>Show this screen to the staff</li>
+                <li>Verify your order number: <strong>{{ order.order_number }}</strong></li>
+                <li>Collect your delicious milk tea!</li>
+            </ol>
+        </div>
+        
+        <div class="action-buttons">
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-large">
+                    ✅ Confirm Receipt
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="qr-placeholder">
+        <p>📱 QR Code for Mobile Pickup</p>
+        <div class="qr-code">
+            <div class="qr-pattern"></div>
+            <p>Order #{{ order.order_number }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

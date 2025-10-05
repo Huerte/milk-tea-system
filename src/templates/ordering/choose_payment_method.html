@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Choose Payment Method - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="payment-method-container">
+    <h2>💳 Using Cash or Credit Card</h2>
+    <p>Choose your preferred payment method</p>
+    
+    <div class="selected-item-summary">
+        <h3>Your Selection:</h3>
+        <div class="item-card">
+            <h4>{{ current_item.drink_name }}</h4>
+            <p>Size: {{ current_item.size_name }}</p>
+            {% if current_item.flavor_name %}
+            <p>Flavor: {{ current_item.flavor_name }}</p>
+            {% endif %}
+            {% if current_item.toppings %}
+            <p>Add-ons: 
+                {% for topping in current_item.toppings %}
+                    {{ topping.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            {% endif %}
+            <p>Quantity: {{ current_item.quantity }}</p>
+            <p class="total-price">Total: ${{ current_item.item_price }}</p>
+        </div>
+    </div>
+    
+    <div class="payment-methods">
+        <h3>Select Payment Method:</h3>
+        
+        <form method="post" class="payment-form">
+            {% csrf_token %}
+            
+            <div class="payment-options">
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="cash" required>
+                    <div class="option-card">
+                        <h4>💵 Cash Payment</h4>
+                        <p>Pay with cash at the counter</p>
+                        <div class="payment-details">
+                            <small>✓ No processing fees</small><br>
+                            <small>✓ Immediate payment</small>
+                        </div>
+                    </div>
+                </label>
+                
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="credit_card" required>
+                    <div class="option-card">
+                        <h4>💳 Credit Card</h4>
+                        <p>Pay with credit/debit card</p>
+                        <div class="payment-details">
+                            <small>✓ Secure payment</small><br>
+                            <small>✓ Digital receipt</small>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="payment-info" id="credit-card-info" style="display: none;">
+                <h4>Credit Card Information</h4>
+                <p><em>Note: This is a demo system. No real payment processing.</em></p>
+                <div class="form-group">
+                    <input type="text" placeholder="Card Number (Demo)" class="form-control">
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="MM/YY" class="form-control">
+                    <input type="text" placeholder="CVV" class="form-control">
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{% url 'choose_specifics' %}" class="btn btn-secondary">
+                    Back to Selection
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    Proceed to Counter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentOptions = document.querySelectorAll('input[name="payment_method"]');
+    const creditCardInfo = document.getElementById('credit-card-info');
+    
+    paymentOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            if (this.value === 'credit_card') {
+                creditCardInfo.style.display = 'block';
+            } else {
+                creditCardInfo.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

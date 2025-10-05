@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Enjoy Your Drink - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="enjoy-container">
+    <h2>🎉 Enjoy Your Drink!</h2>
+    <p>Thank you for your order!</p>
+    
+    <div class="success-card">
+        <div class="celebration">
+            <div class="drink-emoji">🧋</div>
+            <div class="sparkles">✨</div>
+        </div>
+        
+        <h3>Order #{{ order.order_number }} Completed!</h3>
+        
+        <div class="completion-message">
+            <p>We hope you enjoy your delicious milk tea!</p>
+            <p>Your order has been marked as completed.</p>
+        </div>
+        
+        <div class="order-recap">
+            <h4>What you ordered:</h4>
+            <ul>
+                {% for item in order.items.all %}
+                <li>
+                    {{ item.quantity }}x {{ item.drink.name }} ({{ item.size.name }})
+                    {% if item.flavor %} - {{ item.flavor.name }}{% endif %}
+                    {% if item.toppings.exists %}
+                        <br>With: {% for topping in item.toppings.all %}{{ topping.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="feedback-section">
+            <h4>How was your experience?</h4>
+            <div class="rating-stars">
+                <span class="star" data-rating="1">⭐</span>
+                <span class="star" data-rating="2">⭐</span>
+                <span class="star" data-rating="3">⭐</span>
+                <span class="star" data-rating="4">⭐</span>
+                <span class="star" data-rating="5">⭐</span>
+            </div>
+            <p id="rating-text">Click stars to rate!</p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'browse_menu' %}" class="btn btn-secondary">
+                Order Again
+            </a>
+            <a href="{% url 'exit_website' %}" class="btn btn-primary">
+                Exit System
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.star');
+    const ratingText = document.getElementById('rating-text');
+    
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const rating = this.getAttribute('data-rating');
+            
+            // Reset all stars
+            stars.forEach(s => s.classList.remove('selected'));
+            
+            // Highlight selected stars
+            for (let i = 0; i < rating; i++) {
+                stars[i].classList.add('selected');
+            }
+            
+            // Update text
+            const messages = {
+                '1': 'Sorry to hear that! We\'ll do better next time.',
+                '2': 'Thanks for the feedback!',
+                '3': 'Good! Thanks for your order.',
+                '4': 'Great! We\'re glad you enjoyed it.',
+                '5': 'Excellent! Thanks for the 5-star rating!'
+            };
+            
+            ratingText.textContent = messages[rating];
+        });
+    });
+});
+</script>
+{% endblock %}

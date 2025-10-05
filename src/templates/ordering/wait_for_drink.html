@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Wait for Drink - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="wait-container">
+    <h2>⏳ Wait for Your Drink</h2>
+    <p>Your order is being prepared</p>
+    
+    <div class="order-status-card">
+        <h3>Order #{{ order.order_number }}</h3>
+        <div class="status-indicator">
+            <div class="status-item" data-status="placed">
+                <span class="status-icon">📝</span>
+                <span class="status-text">Order Placed</span>
+            </div>
+            <div class="status-item" data-status="preparing">
+                <span class="status-icon">👨‍🍳</span>
+                <span class="status-text">Preparing</span>
+            </div>
+            <div class="status-item" data-status="ready">
+                <span class="status-icon">✅</span>
+                <span class="status-text">Ready</span>
+            </div>
+        </div>
+        
+        <div class="current-status">
+            <h4>Current Status: <span id="status-text">{{ order.get_status_display }}</span></h4>
+            <div class="status-animation">
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="estimated-time">
+            <p>Estimated wait time: <span id="wait-time">5-10 minutes</span></p>
+        </div>
+    </div>
+    
+    <div class="order-details">
+        <h4>Your Order:</h4>
+        <ul>
+            {% for item in order.items.all %}
+            <li>
+                {{ item.quantity }}x {{ item.drink.name }} ({{ item.size.name }})
+                {% if item.flavor %} - {{ item.flavor.name }}{% endif %}
+                {% if item.toppings.exists %}
+                    - Toppings: {% for topping in item.toppings.all %}{{ topping.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <p class="total">Total: ${{ order.total_amount }}</p>
+    </div>
+    
+    <div class="action-buttons">
+        <button onclick="checkOrderStatus()" class="btn btn-secondary">
+            Refresh Status
+        </button>
+        <a href="{% url 'receive_drink' order.order_number %}" class="btn btn-primary" id="receive-btn" style="display: none;">
+            Receive Drink
+        </a>
+    </div>
+</div>
+
+<script>
+let orderNumber = '{{ order.order_number }}';
+let currentStatus = '{{ order.status }}';
+
+function updateStatusDisplay(status) {
+    const statusItems = document.querySelectorAll('.status-item');
+    const statusText = document.getElementById('status-text');
+    const receiveBtn = document.getElementById('receive-btn');
+    const waitTime = document.getElementById('wait-time');
+    
+    // Reset all status items
+    statusItems.forEach(item => {
+        item.classList.remove('active', 'completed');
+    });
+    
+    // Update status display
+    const statusMap = {
+        'placed': 'Order Placed',
+        'preparing': 'Preparing',
+        'ready': 'Ready for Pickup'
+    };
+    
+    statusText.textContent = statusMap[status] || status;
+    
+    // Highlight current and completed statuses
+    statusItems.forEach(item => {
+        const itemStatus = item.getAttribute('data-status');
+        if (itemStatus === status) {
+            item.classList.add('active');
+        } else if (
+            (status === 'preparing' && itemStatus === 'placed') ||
+            (status === 'ready' && (itemStatus === 'placed' || itemStatus === 'preparing'))
+        ) {
+            item.classList.add('completed');
+        }
+    });
+    
+    // Show receive button when ready
+    if (status === 'ready') {
+        receiveBtn.style.display = 'inline-block';
+        waitTime.textContent = 'Ready now!';
+    } else if (status === 'preparing') {
+        waitTime.textContent = '2-5 minutes';
+    }
+}
+
+function checkOrderStatus() {
+    fetch(`/api/order-status/${orderNumber}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status !== currentStatus) {
+                currentStatus = data.status;
+                updateStatusDisplay(currentStatus);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Auto-refresh status every 10 seconds
+setInterval(checkOrderStatus, 10000);
+
+// Initialize status display
+updateStatusDisplay(currentStatus);
+
+// Simulate status progression for demo
+setTimeout(() => {
+    if (currentStatus === 'placed') {
+        fetch(`/api/update-status/${orderNumber}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({status: 'preparing'})
+        }).then(() => checkOrderStatus());
+    }
+}, 5000);
+
+setTimeout(() => {
+    if (currentStatus === 'preparing' || currentStatus === 'placed') {
+        fetch(`/api/update-status/${orderNumber}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({status: 'ready'})
+        }).then(() => checkOrderStatus());
+    }
+}, 15000);
+</script>
+{% endblock %}

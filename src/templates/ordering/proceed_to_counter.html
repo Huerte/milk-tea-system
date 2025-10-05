@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Proceed to Counter - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="counter-container">
+    <h2>🛒 Proceed to Counter</h2>
+    <p>Review your selection and payment method before placing the order</p>
+    
+    <div class="order-summary">
+        <h3>Order Review</h3>
+        
+        <div class="order-item">
+            <div class="item-details">
+                <h4>{{ current_item.drink_name }}</h4>
+                <p>Size: {{ current_item.size_name }}</p>
+                {% if current_item.flavor_name %}
+                <p>Flavor: {{ current_item.flavor_name }}</p>
+                {% endif %}
+                {% if current_item.toppings %}
+                <p>Add-ons: 
+                    {% for topping in current_item.toppings %}
+                        {{ topping.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                {% endif %}
+                <p>Quantity: {{ current_item.quantity }}</p>
+                <p class="payment-method">Payment Method: 
+                    {% if current_item.payment_method == 'cash' %}💵 Cash
+                    {% else %}💳 Credit Card{% endif %}
+                </p>
+            </div>
+            <div class="item-price">
+                ${{ current_item.item_price }}
+            </div>
+        </div>
+        
+        <div class="order-total">
+            <h3>Total: ${{ current_item.item_price }}</h3>
+        </div>
+        
+        <div class="counter-instructions">
+            <h4>Counter Instructions:</h4>
+            <ol>
+                <li>Confirm your order details above</li>
+                <li>Click "Place the Order" to finalize</li>
+                <li>Payment will be processed using your selected method</li>
+                <li>Wait for your drink to be prepared</li>
+            </ol>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'choose_payment_method' %}" class="btn btn-secondary">
+                Change Payment Method
+            </a>
+            <form method="post" action="{% url 'place_order' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                    Place the Order
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

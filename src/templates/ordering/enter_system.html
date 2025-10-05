@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="welcome-container">
+    <div class="welcome-card">
+        <h2>🧋 Welcome to Milk Tea Online Ordering System</h2>
+        <p>Order your favorite milk tea with custom flavors and toppings!</p>
+        
+        <div class="flow-steps">
+            <div class="step">1. Browse the menu</div>
+            <div class="step">2. Decide an order</div>
+            <div class="step">3. Choose specifics (drink, size, add-ons)</div>
+            <div class="step">4. Select payment method (cash/card)</div>
+            <div class="step">5. Proceed to counter</div>
+            <div class="step">6. Place the order</div>
+            <div class="step">7. Wait for the drink</div>
+            <div class="step">8. Receive & enjoy!</div>
+        </div>
+        
+        <a href="{% url 'browse_menu' %}" class="btn btn-primary btn-large">
+            Enter System & Browse Menu
+        </a>
+    </div>
+</div>
+{% endblock %}

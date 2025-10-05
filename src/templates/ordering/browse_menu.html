@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Menu - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="menu-container">
+    <h2>🍵 Browse Our Menu</h2>
+    <p>Select your drinks, flavors, and toppings</p>
+    
+    <div class="drinks-grid">
+        {% for drink in drinks %}
+        <div class="drink-card">
+            <h3>{{ drink.name }}</h3>
+            <p class="price">${{ drink.base_price }}</p>
+            <p class="description">{{ drink.description }}</p>
+            
+            <div class="drink-info">
+                <div class="available-options">
+                    <h5>Available Options:</h5>
+                    <p><strong>Sizes:</strong> 
+                        {% for size in sizes %}{{ size.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    </p>
+                    <p><strong>Flavors:</strong> 
+                        {% for flavor in flavors %}{{ flavor.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    </p>
+                    <p><strong>Add-ons:</strong> 
+                        {% for topping in toppings %}{{ topping.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{% url 'decide_order' %}" class="btn btn-primary">
+            Decide an Order 🛒
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Process Payment - Milk Tea System{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <h2>💳 Process Payment</h2>
+    <p>Choose your payment method</p>
+    
+    <div class="order-summary-mini">
+        <h3>Order #{{ order.order_number }}</h3>
+        <p class="total-amount">Total Amount: ${{ order.total_amount }}</p>
+    </div>
+    
+    <div class="payment-methods">
+        <h3>Select Payment Method:</h3>
+        
+        <form method="post" class="payment-form">
+            {% csrf_token %}
+            
+            <div class="payment-options">
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="cash" required>
+                    <div class="option-card">
+                        <h4>💵 Cash Payment</h4>
+                        <p>Pay with cash at the counter</p>
+                    </div>
+                </label>
+                
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="credit_card" required>
+                    <div class="option-card">
+                        <h4>💳 Credit Card</h4>
+                        <p>Pay with credit/debit card</p>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="payment-info" id="credit-card-info" style="display: none;">
+                <h4>Credit Card Information</h4>
+                <p><em>Note: This is a demo system. No real payment processing.</em></p>
+                <div class="form-group">
+                    <input type="text" placeholder="Card Number" class="form-control">
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="MM/YY" class="form-control">
+                    <input type="text" placeholder="CVV" class="form-control">
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{% url 'proceed_to_counter' %}" class="btn btn-secondary">
+                    Back to Order
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    Complete Payment
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentOptions = document.querySelectorAll('input[name="payment_method"]');
+    const creditCardInfo = document.getElementById('credit-card-info');
+    
+    paymentOptions.forEach(option => {
+        option.addEventListener('change', function() {
+            if (this.value === 'credit_card') {
+                creditCardInfo.style.display = 'block';
+            } else {
+                creditCardInfo.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

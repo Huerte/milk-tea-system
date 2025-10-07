@@ -4,13 +4,13 @@
 
 {% block content %}
 <div class="enjoy-container">
-    <h2>🎉 Enjoy Your Drink!</h2>
+    <h2><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">celebration</span> Enjoy Your Drink!</h2>
     <p>Thank you for your order!</p>
     
     <div class="success-card">
         <div class="celebration">
-            <div class="drink-emoji">🧋</div>
-            <div class="sparkles">✨</div>
+            <div class="drink-emoji"><span class="material-icons" style="font-size: 4rem;">local_cafe</span></div>
+            <div class="sparkles"><span class="material-icons" style="font-size: 2rem;">auto_awesome</span></div>
         </div>
         
         <h3>Order #{{ order.order_number }} Completed!</h3>
@@ -38,21 +38,21 @@
         <div class="feedback-section">
             <h4>How was your experience?</h4>
             <div class="rating-stars">
-                <span class="star" data-rating="1">⭐</span>
-                <span class="star" data-rating="2">⭐</span>
-                <span class="star" data-rating="3">⭐</span>
-                <span class="star" data-rating="4">⭐</span>
-                <span class="star" data-rating="5">⭐</span>
+                <span class="star" data-rating="1"><span class="material-icons">star_border</span></span>
+                <span class="star" data-rating="2"><span class="material-icons">star_border</span></span>
+                <span class="star" data-rating="3"><span class="material-icons">star_border</span></span>
+                <span class="star" data-rating="4"><span class="material-icons">star_border</span></span>
+                <span class="star" data-rating="5"><span class="material-icons">star_border</span></span>
             </div>
             <p id="rating-text">Click stars to rate!</p>
         </div>
         
         <div class="action-buttons">
             <a href="{% url 'browse_menu' %}" class="btn btn-secondary">
-                Order Again
+                <span class="material-icons">refresh</span> Order Again
             </a>
             <a href="{% url 'exit_website' %}" class="btn btn-primary">
-                Exit System
+                <span class="material-icons">logout</span> Exit System
             </a>
         </div>
     </div>
@@ -67,15 +67,19 @@ document.addEventListener('DOMContentLoaded', function() {
         star.addEventListener('click', function() {
             const rating = this.getAttribute('data-rating');
             
-            // Reset all stars
-            stars.forEach(s => s.classList.remove('selected'));
+
+            stars.forEach(s => {
+                s.classList.remove('selected');
+                s.querySelector('.material-icons').textContent = 'star_border';
+            });
             
-            // Highlight selected stars
+
             for (let i = 0; i < rating; i++) {
                 stars[i].classList.add('selected');
+                stars[i].querySelector('.material-icons').textContent = 'star';
             }
             
-            // Update text
+
             const messages = {
                 '1': 'Sorry to hear that! We\'ll do better next time.',
                 '2': 'Thanks for the feedback!',

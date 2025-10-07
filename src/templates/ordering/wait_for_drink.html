@@ -4,22 +4,22 @@
 
 {% block content %}
 <div class="wait-container">
-    <h2>⏳ Wait for Your Drink</h2>
+    <h2><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">schedule</span> Wait for Your Drink</h2>
     <p>Your order is being prepared</p>
     
     <div class="order-status-card">
         <h3>Order #{{ order.order_number }}</h3>
         <div class="status-indicator">
             <div class="status-item" data-status="placed">
-                <span class="status-icon">📝</span>
+                <span class="material-icons">description</span>
                 <span class="status-text">Order Placed</span>
             </div>
             <div class="status-item" data-status="preparing">
-                <span class="status-icon">👨‍🍳</span>
+                <span class="material-icons">restaurant</span>
                 <span class="status-text">Preparing</span>
             </div>
             <div class="status-item" data-status="ready">
-                <span class="status-icon">✅</span>
+                <span class="material-icons">check_circle</span>
                 <span class="status-text">Ready</span>
             </div>
         </div>
@@ -53,15 +53,15 @@
             </li>
             {% endfor %}
         </ul>
-        <p class="total">Total: ${{ order.total_amount }}</p>
+        <p class="total">Total: ₱{{ order.total_amount }}</p>
     </div>
     
     <div class="action-buttons">
         <button onclick="checkOrderStatus()" class="btn btn-secondary">
-            Refresh Status
+            <span class="material-icons">refresh</span> Refresh Status
         </button>
         <a href="{% url 'receive_drink' order.order_number %}" class="btn btn-primary" id="receive-btn" style="display: none;">
-            Receive Drink
+            <span class="material-icons">local_cafe</span> Receive Drink
         </a>
     </div>
 </div>
@@ -76,12 +76,12 @@ function updateStatusDisplay(status) {
     const receiveBtn = document.getElementById('receive-btn');
     const waitTime = document.getElementById('wait-time');
     
-    // Reset all status items
+
     statusItems.forEach(item => {
         item.classList.remove('active', 'completed');
     });
     
-    // Update status display
+
     const statusMap = {
         'placed': 'Order Placed',
         'preparing': 'Preparing',
@@ -90,7 +90,7 @@ function updateStatusDisplay(status) {
     
     statusText.textContent = statusMap[status] || status;
     
-    // Highlight current and completed statuses
+
     statusItems.forEach(item => {
         const itemStatus = item.getAttribute('data-status');
         if (itemStatus === status) {
@@ -103,7 +103,7 @@ function updateStatusDisplay(status) {
         }
     });
     
-    // Show receive button when ready
+
     if (status === 'ready') {
         receiveBtn.style.display = 'inline-block';
         waitTime.textContent = 'Ready now!';
@@ -124,13 +124,13 @@ function checkOrderStatus() {
         .catch(error => console.error('Error:', error));
 }
 
-// Auto-refresh status every 10 seconds
+
 setInterval(checkOrderStatus, 10000);
 
-// Initialize status display
+
 updateStatusDisplay(currentStatus);
 
-// Simulate status progression for demo
+
 setTimeout(() => {
     if (currentStatus === 'placed') {
         fetch(`/api/update-status/${orderNumber}/`, {

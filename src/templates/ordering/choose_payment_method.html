@@ -4,26 +4,28 @@
 
 {% block content %}
 <div class="payment-method-container">
-    <h2>💳 Using Cash or Credit Card</h2>
-    <p>Choose your preferred payment method</p>
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+        <h2 style="font-size: 2.5rem; color: var(--primary-purple); margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 2.5rem; vertical-align: middle;">payment</span> Choose Payment Method</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light);">Select cash or credit card payment</p>
+    </div>
     
     <div class="selected-item-summary">
-        <h3>Your Selection:</h3>
+        <h3 style="color: var(--primary-purple); margin-bottom: 1.5rem; font-size: 1.5rem;"><span class="material-icons" style="vertical-align: middle;">receipt</span> Your Order Summary</h3>
         <div class="item-card">
-            <h4>{{ current_item.drink_name }}</h4>
-            <p>Size: {{ current_item.size_name }}</p>
+            <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">{{ current_item.drink_name }}</h4>
+            <p style="margin: 0.5rem 0;"><strong>Size:</strong> {{ current_item.size_name }}</p>
             {% if current_item.flavor_name %}
-            <p>Flavor: {{ current_item.flavor_name }}</p>
+            <p style="margin: 0.5rem 0;"><strong>Flavor:</strong> {{ current_item.flavor_name }}</p>
             {% endif %}
             {% if current_item.toppings %}
-            <p>Add-ons: 
+            <p style="margin: 0.5rem 0;"><strong>Premium Add-ons:</strong> 
                 {% for topping in current_item.toppings %}
                     {{ topping.name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
             {% endif %}
-            <p>Quantity: {{ current_item.quantity }}</p>
-            <p class="total-price">Total: ${{ current_item.item_price }}</p>
+            <p style="margin: 0.5rem 0;"><strong>Quantity:</strong> {{ current_item.quantity }}</p>
+            <p class="total-price" style="font-size: 1.8rem; color: var(--accent-green); margin-top: 1rem; font-weight: 700;">Total: ₱{{ current_item.item_price }}</p>
         </div>
     </div>
     
@@ -37,11 +39,11 @@
                 <label class="payment-option">
                     <input type="radio" name="payment_method" value="cash" required>
                     <div class="option-card">
-                        <h4>💵 Cash Payment</h4>
+                        <h4><span class="material-icons">payments</span> Cash Payment</h4>
                         <p>Pay with cash at the counter</p>
                         <div class="payment-details">
-                            <small>✓ No processing fees</small><br>
-                            <small>✓ Immediate payment</small>
+                            <small><span class="material-icons" style="font-size: 0.9rem;">check</span> No processing fees</small><br>
+                            <small><span class="material-icons" style="font-size: 0.9rem;">check</span> Immediate payment</small>
                         </div>
                     </div>
                 </label>
@@ -49,11 +51,11 @@
                 <label class="payment-option">
                     <input type="radio" name="payment_method" value="credit_card" required>
                     <div class="option-card">
-                        <h4>💳 Credit Card</h4>
+                        <h4><span class="material-icons">credit_card</span> Credit Card</h4>
                         <p>Pay with credit/debit card</p>
                         <div class="payment-details">
-                            <small>✓ Secure payment</small><br>
-                            <small>✓ Digital receipt</small>
+                            <small><span class="material-icons" style="font-size: 0.9rem;">check</span> Secure payment</small><br>
+                            <small><span class="material-icons" style="font-size: 0.9rem;">check</span> Digital receipt</small>
                         </div>
                     </div>
                 </label>
@@ -61,9 +63,8 @@
             
             <div class="payment-info" id="credit-card-info" style="display: none;">
                 <h4>Credit Card Information</h4>
-                <p><em>Note: This is a demo system. No real payment processing.</em></p>
                 <div class="form-group">
-                    <input type="text" placeholder="Card Number (Demo)" class="form-control">
+                    <input type="text" placeholder="Card Number" class="form-control">
                 </div>
                 <div class="form-row">
                     <input type="text" placeholder="MM/YY" class="form-control">
@@ -73,10 +74,10 @@
             
             <div class="action-buttons">
                 <a href="{% url 'choose_specifics' %}" class="btn btn-secondary">
-                    Back to Selection
+                    <span class="material-icons">arrow_back</span> Back to Selection
                 </a>
                 <button type="submit" class="btn btn-primary">
-                    Proceed to Counter
+                    <span class="material-icons">arrow_forward</span> Proceed to Counter
                 </button>
             </div>
         </form>

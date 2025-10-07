@@ -5,23 +5,27 @@
 {% block content %}
 <div class="welcome-container">
     <div class="welcome-card">
-        <h2>🧋 Welcome to Milk Tea Online Ordering System</h2>
-        <p>Order your favorite milk tea with custom flavors and toppings!</p>
-        
-        <div class="flow-steps">
-            <div class="step">1. Browse the menu</div>
-            <div class="step">2. Decide an order</div>
-            <div class="step">3. Choose specifics (drink, size, add-ons)</div>
-            <div class="step">4. Select payment method (cash/card)</div>
-            <div class="step">5. Proceed to counter</div>
-            <div class="step">6. Place the order</div>
-            <div class="step">7. Wait for the drink</div>
-            <div class="step">8. Receive & enjoy!</div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 2.8rem; color: var(--primary-purple); margin-bottom: 1rem;"><span class="material-icons" style="font-size: 2.8rem; vertical-align: middle;">local_cafe</span> Welcome to Milk Tea Online Ordering</h2>
+            <p style="font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto;">Order your favorite milk tea with custom flavors and premium toppings - delivered fresh!</p>
         </div>
         
-        <a href="{% url 'browse_menu' %}" class="btn btn-primary btn-large">
-            Enter System & Browse Menu
-        </a>
+        <div class="flow-steps" style="margin: 3rem 0;">
+            <div class="step"><span class="material-icons">menu_book</span> <strong>Browse</strong> the menu</div>
+            <div class="step"><span class="material-icons">shopping_cart</span> <strong>Decide</strong> an order</div>
+            <div class="step"><span class="material-icons">tune</span> <strong>Choose</strong> specifics</div>
+            <div class="step"><span class="material-icons">payment</span> <strong>Select</strong> payment</div>
+            <div class="step"><span class="material-icons">store</span> <strong>Proceed</strong> to counter</div>
+            <div class="step"><span class="material-icons">check_circle</span> <strong>Place</strong> the order</div>
+            <div class="step"><span class="material-icons">schedule</span> <strong>Wait</strong> for drink</div>
+            <div class="step"><span class="material-icons">celebration</span> <strong>Receive</strong> & enjoy!</div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="{% url 'browse_menu' %}" class="btn btn-primary btn-large">
+                <span class="material-icons">arrow_forward</span> Enter System & Browse Menu
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}

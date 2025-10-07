@@ -1,30 +1,50 @@
-/* Base Styles */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+
+    --primary-purple: #8b5a96;
+    --primary-dark: #6b4c93;
+    --secondary-pink: #ffc0d3;
+    --light-pink: #ffe6f0;
+    --cream: #fff8f0;
+    --light-purple: #f0e6ff;
+    --accent-green: #27ae60;
+    --text-dark: #2c3e50;
+    --text-light: #666;
+    --border-light: #e8e8e8;
+    --shadow: rgba(139, 90, 150, 0.15);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+    color: var(--text-dark);
+    background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
     min-height: 100vh;
 }
 
-/* Header */
+
 header {
-    background: linear-gradient(135deg, #8b5a96 0%, #6b4c93 100%);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
     color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1.5rem 0;
+    box-shadow: 0 4px 20px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 header h1 {
     text-align: center;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 nav {
@@ -34,24 +54,35 @@ nav {
 nav a {
     color: white;
     text-decoration: none;
-    margin: 0 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    transition: background-color 0.3s;
+    margin: 0 0.75rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 nav a:hover {
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
 }
 
-/* Main Content */
+
+.material-icons {
+    vertical-align: middle;
+    font-size: 1.25rem;
+}
+
+
 main {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* Messages */
+
 .messages {
     margin-bottom: 1rem;
 }
@@ -80,62 +111,77 @@ main {
     border: 1px solid #ffeaa7;
 }
 
-/* Buttons */
+
 .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #8b5a96 0%, #6b4c93 100%);
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
     color: white;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(139, 90, 150, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(139, 90, 150, 0.35);
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-    color: white;
+    background: white;
+    color: var(--primary-purple);
+    border: 2px solid var(--primary-purple);
 }
 
 .btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+    background: var(--primary-purple);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px var(--shadow);
 }
 
 .btn-large {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    padding: 1.1rem 2.5rem;
+    font-size: 1.25rem;
 }
 
-/* Cards */
+
 .welcome-card, .drink-card, .order-summary, .payment-form, 
 .order-status-card, .ready-card, .success-card, .goodbye-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 30px var(--shadow);
     margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
 }
 
-/* Welcome Page */
+.drink-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(139, 90, 150, 0.25);
+}
+
+
 .welcome-container {
     text-align: center;
 }
 
 .flow-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     margin: 2rem 0;
 }
@@ -145,79 +191,137 @@ main {
     padding: 1rem;
     border-radius: 10px;
     border-left: 4px solid #8b5a96;
+    min-width: 200px;
+    max-width: 250px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-/* Menu Page */
+
 .drinks-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.75rem;
     margin: 2rem 0;
 }
 
+.drink-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.drink-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-purple), var(--secondary-pink));
+}
+
 .drink-card h3 {
-    color: #8b5a96;
-    margin-bottom: 0.5rem;
+    color: var(--primary-purple);
+    margin-bottom: 0.75rem;
+    font-size: 1.35rem;
+    font-weight: 600;
 }
 
 .price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #27ae60;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent-green);
     margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(39, 174, 96, 0.1);
+    border-radius: 8px;
+}
+
+.description {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
 }
 
 .form-group select, .form-group input {
     width: 100%;
-    padding: 0.5rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
     font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--cream);
 }
 
 .form-group select:focus, .form-group input:focus {
     outline: none;
-    border-color: #8b5a96;
+    border-color: var(--primary-purple);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(139, 90, 150, 0.1);
 }
 
 .toppings-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
 }
 
 .checkbox-label {
     display: flex;
     align-items: center;
     cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    background: var(--cream);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.checkbox-label:hover {
+    background: var(--light-pink);
+    border-color: var(--secondary-pink);
 }
 
 .checkbox-label input {
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
     width: auto;
+    cursor: pointer;
+    accent-color: var(--primary-purple);
 }
 
-/* Order Summary */
+
 .order-items {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
 .order-item {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+    padding: 1.25rem;
+    border-bottom: 2px solid var(--border-light);
+    transition: background 0.3s ease;
+}
+
+.order-item:hover {
+    background: var(--cream);
 }
 
 .order-item:last-child {
@@ -225,29 +329,35 @@ main {
 }
 
 .item-details h4 {
-    color: #8b5a96;
-    margin-bottom: 0.5rem;
+    color: var(--primary-purple);
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 600;
 }
 
 .item-price {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #27ae60;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    background: rgba(39, 174, 96, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
 }
 
 .order-total {
     text-align: right;
-    padding: 1rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 10px;
-    margin: 1rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 100%);
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    border: 2px solid var(--secondary-pink);
 }
 
-/* Payment Page */
+
 .payment-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
     margin: 2rem 0;
 }
 
@@ -260,21 +370,31 @@ main {
 }
 
 .option-card {
-    padding: 1.5rem;
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    padding: 2rem;
+    border: 3px solid var(--border-light);
+    border-radius: 16px;
     text-align: center;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.option-card:hover {
+    border-color: var(--secondary-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .payment-option input[type="radio"]:checked + .option-card {
-    border-color: #8b5a96;
-    background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+    border-color: var(--primary-purple);
+    background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
+    box-shadow: 0 8px 30px rgba(139, 90, 150, 0.3);
 }
 
 .option-card h4 {
-    margin-bottom: 0.5rem;
-    color: #8b5a96;
+    margin-bottom: 0.75rem;
+    color: var(--primary-purple);
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .form-row {
@@ -283,7 +403,7 @@ main {
     gap: 1rem;
 }
 
-/* Wait Page */
+
 .status-indicator {
     display: flex;
     justify-content: space-between;
@@ -352,7 +472,7 @@ main {
     40% { transform: scale(1); }
 }
 
-/* Receive Page */
+
 .drink-icon {
     font-size: 4rem;
     text-align: center;
@@ -393,7 +513,7 @@ main {
     margin: 0 auto 0.5rem;
 }
 
-/* Enjoy Page */
+
 .celebration {
     text-align: center;
     position: relative;
@@ -441,7 +561,7 @@ main {
     filter: brightness(1.2);
 }
 
-/* Exit Page */
+
 .goodbye-animation {
     text-align: center;
     margin-bottom: 2rem;
@@ -485,7 +605,7 @@ main {
     color: white;
 }
 
-/* Action Buttons */
+
 .action-buttons {
     text-align: center;
     margin: 2rem 0;
@@ -495,13 +615,14 @@ main {
     margin: 0 0.5rem;
 }
 
-/* Footer */
+
 footer {
-    background: #2c3e50;
+    background: linear-gradient(135deg, var(--text-dark) 0%, #34495e 100%);
     color: white;
     text-align: center;
-    padding: 1rem 0;
-    margin-top: 3rem;
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+    box-shadow: 0 -4px 20px var(--shadow);
 }
 
 .footer-info {
@@ -512,36 +633,48 @@ footer {
     border-radius: 10px;
 }
 
-/* New Flow Specific Styles */
+
 .available-options {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1rem 0;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 100%);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin: 1.25rem 0;
+    border-left: 4px solid var(--primary-purple);
 }
 
 .available-options h5 {
-    color: #8b5a96;
-    margin-bottom: 0.5rem;
+    color: var(--primary-purple);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1.05rem;
 }
 
 .available-options p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.available-options strong {
+    color: var(--text-dark);
+    font-weight: 600;
 }
 
 .selected-item-summary {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 10px;
+    background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+    padding: 2rem;
+    border-radius: 16px;
     margin: 2rem 0;
+    border: 2px solid var(--border-light);
+    box-shadow: 0 4px 20px var(--shadow);
 }
 
 .item-card {
     background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid #8b5a96;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-purple);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .payment-details {
@@ -585,7 +718,7 @@ footer {
     margin: 0 auto;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .drinks-grid {
         grid-template-columns: 1fr;

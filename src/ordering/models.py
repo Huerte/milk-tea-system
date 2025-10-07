@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Drink(models.Model):
-    """Model for milk tea drinks"""
+    
     name = models.CharField(max_length=100)
     base_price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(blank=True)
@@ -14,7 +14,7 @@ class Drink(models.Model):
 
 
 class Flavor(models.Model):
-    """Model for drink flavors"""
+    
     name = models.CharField(max_length=50)
     additional_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     
@@ -23,7 +23,7 @@ class Flavor(models.Model):
 
 
 class Topping(models.Model):
-    """Model for drink toppings"""
+    
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     
@@ -32,7 +32,7 @@ class Topping(models.Model):
 
 
 class Size(models.Model):
-    """Model for drink sizes"""
+    
     name = models.CharField(max_length=20)  # Small, Medium, Large
     price_multiplier = models.DecimalField(max_digits=3, decimal_places=2, default=1.00)
     
@@ -41,7 +41,7 @@ class Size(models.Model):
 
 
 class Order(models.Model):
-    """Model for customer orders"""
+    
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('placed', 'Placed'),
@@ -60,7 +60,7 @@ class Order(models.Model):
         return f"Order #{self.order_number}"
     
     def generate_order_number(self):
-        """Generate unique order number"""
+        
         import random
         import string
         while True:
@@ -70,7 +70,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    """Model for individual items in an order"""
+    
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     drink = models.ForeignKey(Drink, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
@@ -80,7 +80,7 @@ class OrderItem(models.Model):
     item_price = models.DecimalField(max_digits=6, decimal_places=2)
     
     def calculate_price(self):
-        """Calculate total price for this item"""
+        
         base_price = self.drink.base_price * self.size.price_multiplier
         if self.flavor:
             base_price += self.flavor.additional_price
@@ -89,12 +89,14 @@ class OrderItem(models.Model):
         return (base_price + toppings_price) * self.quantity
     
     def save(self, *args, **kwargs):
-        self.item_price = self.calculate_price()
+
+        if not self.item_price or self.item_price == 0:
+            self.item_price = self.calculate_price()
         super().save(*args, **kwargs)
 
 
 class Payment(models.Model):
-    """Model for order payments"""
+    
     PAYMENT_METHOD_CHOICES = [
         ('cash', 'Cash'),
         ('credit_card', 'Credit Card'),

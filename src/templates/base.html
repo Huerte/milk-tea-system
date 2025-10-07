@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Milk Tea Online Ordering System{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <header>
-        <h1>🧋 Milk Tea Online Ordering System</h1>
+        <h1><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">local_cafe</span> Milk Tea Online Ordering System</h1>
         <nav>
-            <a href="{% url 'enter_system' %}">Home</a>
-            <a href="{% url 'browse_menu' %}">Menu</a>
-            <a href="{% url 'proceed_to_counter' %}">Cart</a>
+            <a href="{% url 'enter_system' %}"><span class="material-icons">home</span> Home</a>
+            <a href="{% url 'browse_menu' %}"><span class="material-icons">restaurant_menu</span> Menu</a>
         </nav>
     </header>
 

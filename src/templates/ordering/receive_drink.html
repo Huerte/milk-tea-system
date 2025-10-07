@@ -4,11 +4,11 @@
 
 {% block content %}
 <div class="receive-container">
-    <h2>🎉 Receive Your Drink</h2>
+    <h2><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">celebration</span> Receive Your Drink</h2>
     <p>Your order is ready for pickup!</p>
     
     <div class="ready-card">
-        <div class="drink-icon">🧋</div>
+        <div class="drink-icon"><span class="material-icons" style="font-size: 4rem;">local_cafe</span></div>
         <h3>Order #{{ order.order_number }} is Ready!</h3>
         
         <div class="order-summary">
@@ -24,7 +24,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="total">Total Paid: ${{ order.total_amount }}</p>
+            <p class="total">Total Paid: ₱{{ order.total_amount }}</p>
         </div>
         
         <div class="pickup-instructions">
@@ -40,17 +40,9 @@
             <form method="post" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-large">
-                    ✅ Confirm Receipt
+                    <span class="material-icons">check_circle</span> Confirm Receipt
                 </button>
             </form>
-        </div>
-    </div>
-    
-    <div class="qr-placeholder">
-        <p>📱 QR Code for Mobile Pickup</p>
-        <div class="qr-code">
-            <div class="qr-pattern"></div>
-            <p>Order #{{ order.order_number }}</p>
         </div>
     </div>
 </div>

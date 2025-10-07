@@ -4,26 +4,28 @@
 
 {% block content %}
 <div class="menu-container">
-    <h2>🍵 Browse Our Menu</h2>
-    <p>Select your drinks, flavors, and toppings</p>
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+        <h2 style="font-size: 2.5rem; color: var(--primary-purple); margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 2.5rem; vertical-align: middle;">restaurant_menu</span> Browse Our Menu</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light);">Discover our delicious selection of milk tea and beverages</p>
+    </div>
     
     <div class="drinks-grid">
         {% for drink in drinks %}
         <div class="drink-card">
             <h3>{{ drink.name }}</h3>
-            <p class="price">${{ drink.base_price }}</p>
+            <p class="price">₱{{ drink.base_price }}</p>
             <p class="description">{{ drink.description }}</p>
             
             <div class="drink-info">
                 <div class="available-options">
-                    <h5>Available Options:</h5>
+                    <h5><span class="material-icons" style="font-size: 1.1rem;">settings</span> Customization Options</h5>
                     <p><strong>Sizes:</strong> 
                         {% for size in sizes %}{{ size.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
                     </p>
                     <p><strong>Flavors:</strong> 
                         {% for flavor in flavors %}{{ flavor.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
                     </p>
-                    <p><strong>Add-ons:</strong> 
+                    <p><strong>Premium Add-ons:</strong> 
                         {% for topping in toppings %}{{ topping.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
                     </p>
                 </div>
@@ -32,9 +34,9 @@
         {% endfor %}
     </div>
     
-    <div class="action-buttons">
-        <a href="{% url 'decide_order' %}" class="btn btn-primary">
-            Decide an Order 🛒
+    <div class="action-buttons" style="margin-top: 3rem;">
+        <a href="{% url 'decide_order' %}" class="btn btn-primary btn-large">
+            <span class="material-icons">shopping_cart</span> Decide an Order & Customize
         </a>
     </div>
 </div>

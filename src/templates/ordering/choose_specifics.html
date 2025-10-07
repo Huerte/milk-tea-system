@@ -4,14 +4,16 @@
 
 {% block content %}
 <div class="specifics-container">
-    <h2>🎯 Choose the Specific Drink, Size and Any Add On</h2>
-    <p>Select your drink with pearls, jelly, or pudding</p>
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+        <h2 style="font-size: 2.5rem; color: var(--primary-purple); margin-bottom: 0.5rem;"><span class="material-icons" style="font-size: 2.5rem; vertical-align: middle;">tune</span> Customize Your Drink</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light);">Choose size, flavor, and premium add-ons (pearls, jelly, pudding)</p>
+    </div>
     
     <div class="drinks-grid">
         {% for drink in drinks %}
         <div class="drink-card">
             <h3>{{ drink.name }}</h3>
-            <p class="price">${{ drink.base_price }}</p>
+            <p class="price">₱{{ drink.base_price }}</p>
             <p class="description">{{ drink.description }}</p>
             
             <form method="post" action="{% url 'choose_specifics' %}" class="order-form">
@@ -19,7 +21,7 @@
                 <input type="hidden" name="drink_id" value="{{ drink.id }}">
                 
                 <div class="form-group">
-                    <label>Size:</label>
+                    <label><span class="material-icons" style="font-size: 1rem;">straighten</span> Size:</label>
                     <select name="size_id" required>
                         {% for size in sizes %}
                         <option value="{{ size.id }}">{{ size.name }} (×{{ size.price_multiplier }})</option>
@@ -28,45 +30,47 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Flavor:</label>
+                    <label><span class="material-icons" style="font-size: 1rem;">palette</span> Flavor:</label>
                     <select name="flavor_id">
-                        <option value="">No flavor</option>
+                        <option value="">Original (No extra flavor)</option>
                         {% for flavor in flavors %}
+                        {% if flavor.name != "Original" %}
                         <option value="{{ flavor.id }}">{{ flavor.name }} 
-                            {% if flavor.additional_price > 0 %}(+${{ flavor.additional_price }}){% endif %}
+                            {% if flavor.additional_price > 0 %}(+₱{{ flavor.additional_price }}){% endif %}
                         </option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>Add-ons (Pearls, Jelly, Pudding):</label>
+                    <label><span class="material-icons" style="font-size: 1rem;">add_circle</span> Premium Add-ons:</label>
                     <div class="toppings-list">
                         {% for topping in toppings %}
                         <label class="checkbox-label">
                             <input type="checkbox" name="toppings" value="{{ topping.id }}">
-                            {{ topping.name }} (+${{ topping.price }})
+                            {{ topping.name }} <span style="color: var(--accent-green);">(+₱{{ topping.price }})</span>
                         </label>
                         {% endfor %}
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Quantity:</label>
+                    <label><span class="material-icons" style="font-size: 1rem;">123</span> Quantity:</label>
                     <input type="number" name="quantity" value="1" min="1" max="10">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">
-                    Choose This & Select Payment Method
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <span class="material-icons">arrow_forward</span> Continue to Payment Method
                 </button>
             </form>
         </div>
         {% endfor %}
     </div>
     
-    <div class="action-buttons">
+    <div class="action-buttons" style="margin-top: 3rem;">
         <a href="{% url 'browse_menu' %}" class="btn btn-secondary">
-            Back to Menu
+            <span class="material-icons">arrow_back</span> Back to Menu
         </a>
     </div>
 </div>

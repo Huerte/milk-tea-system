@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="counter-container">
-    <h2>🛒 Proceed to Counter</h2>
+    <h2><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">store</span> Proceed to Counter</h2>
     <p>Review your selection and payment method before placing the order</p>
     
     <div class="order-summary">
@@ -26,17 +26,17 @@
                 {% endif %}
                 <p>Quantity: {{ current_item.quantity }}</p>
                 <p class="payment-method">Payment Method: 
-                    {% if current_item.payment_method == 'cash' %}💵 Cash
-                    {% else %}💳 Credit Card{% endif %}
+                    {% if current_item.payment_method == 'cash' %}<span class="material-icons" style="font-size: 1rem;">payments</span> Cash
+                    {% else %}<span class="material-icons" style="font-size: 1rem;">credit_card</span> Credit Card{% endif %}
                 </p>
             </div>
             <div class="item-price">
-                ${{ current_item.item_price }}
+                ₱{{ current_item.item_price }}
             </div>
         </div>
         
         <div class="order-total">
-            <h3>Total: ${{ current_item.item_price }}</h3>
+            <h3>Total: ₱{{ current_item.item_price }}</h3>
         </div>
         
         <div class="counter-instructions">
@@ -51,12 +51,12 @@
         
         <div class="action-buttons">
             <a href="{% url 'choose_payment_method' %}" class="btn btn-secondary">
-                Change Payment Method
+                <span class="material-icons">edit</span> Change Payment Method
             </a>
             <form method="post" action="{% url 'place_order' %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">
-                    Place the Order
+                    <span class="material-icons">check_circle</span> Place the Order
                 </button>
             </form>
         </div>

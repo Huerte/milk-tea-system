@@ -4,13 +4,13 @@
 
 {% block content %}
 <div class="exit-container">
-    <h2>👋 Thank You for Visiting!</h2>
+    <h2><span class="material-icons" style="vertical-align: middle; font-size: 2rem;">waving_hand</span> Thank You for Visiting!</h2>
     <p>We hope to see you again soon!</p>
     
     <div class="goodbye-card">
         <div class="goodbye-animation">
-            <div class="wave">👋</div>
-            <div class="tea-cup">🧋</div>
+            <div class="wave"><span class="material-icons" style="font-size: 3rem;">waving_hand</span></div>
+            <div class="tea-cup"><span class="material-icons" style="font-size: 3rem;">local_cafe</span></div>
         </div>
         
         <h3>Come Back Soon!</h3>
@@ -23,45 +23,36 @@
         <div class="visit-info">
             <h4>Visit Us Again:</h4>
             <ul>
-                <li>🕒 Open daily: 9:00 AM - 10:00 PM</li>
-                <li>📍 Multiple locations available</li>
-                <li>🚚 Delivery and pickup options</li>
-                <li>💳 Multiple payment methods accepted</li>
-            </ul>
+                <li><span class="material-icons" style="font-size: 1rem;">schedule</span> Open daily: 9:00 AM - 10:00 PM</li>
+                <li><span class="material-icons" style="font-size: 1rem;">location_on</span> Multiple locations available</li>
+                <li><span class="material-icons" style="font-size: 1rem;">local_shipping</span> Delivery and pickup options</li>
+                <li><span class="material-icons" style="font-size: 1rem;">payment</span> Multiple payment methods accepted</li>
         </div>
         
         <div class="social-links">
             <h4>Follow Us:</h4>
             <div class="social-buttons">
-                <a href="#" class="social-btn">📘 Facebook</a>
-                <a href="#" class="social-btn">📷 Instagram</a>
-                <a href="#" class="social-btn">🐦 Twitter</a>
+                <a href="https://facebook.com" target="_blank" class="social-btn"><span class="material-icons" style="font-size: 1rem;">facebook</span> Facebook</a>
+                <a href="https://instagram.com" target="_blank" class="social-btn"><span class="material-icons" style="font-size: 1rem;">photo_camera</span> Instagram</a>
+                <a href="https://twitter.com" target="_blank" class="social-btn"><span class="material-icons" style="font-size: 1rem;">tag</span> Twitter</a>
             </div>
         </div>
         
         <div class="action-buttons">
             <a href="{% url 'enter_system' %}" class="btn btn-primary">
-                Start New Order
+                <span class="material-icons">add_shopping_cart</span> Start New Order
             </a>
-            <button onclick="window.close()" class="btn btn-secondary">
-                Close Window
-            </button>
         </div>
-    </div>
-    
-    <div class="footer-info">
-        <p>© 2024 Milk Tea Online Ordering System</p>
-        <p>Built with Django & Vanilla JS</p>
     </div>
 </div>
 
 <script>
-// Add some animation effects
+
 document.addEventListener('DOMContentLoaded', function() {
     const wave = document.querySelector('.wave');
     const teaCup = document.querySelector('.tea-cup');
     
-    // Animate wave
+
     setInterval(() => {
         wave.style.transform = 'rotate(20deg)';
         setTimeout(() => {
@@ -72,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }, 2000);
     
-    // Animate tea cup
+
     setInterval(() => {
         teaCup.style.transform = 'scale(1.1)';
         setTimeout(() => {
